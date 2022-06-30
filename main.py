@@ -9,6 +9,8 @@ mydb = mysql.connector.connect(
     database="fastapi"
 )
 
+mycursor = mydb.cursor()
+
 app = FastAPI()
 
 movies = [{"title":"", "year":0},
@@ -25,6 +27,9 @@ async def root():
 #get all movies
 @app.get("/movies")
 def get_movies():
+    sql = "SELECT * FROM movies"
+    mycursor.execute(sql)
+    movies = mycursor.fetchall()
     return movies
 
 #get single movie
