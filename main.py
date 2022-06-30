@@ -2,7 +2,12 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-movies = [{"title":"", "year":0},{"title":"Batman", "year":2021}, {"title":"Joker", "year":2022} ]
+movies = [{"title":"", "year":0},
+          {"title":"Batman", "year":2021}, 
+          {"title":"Joker", "year":2022},
+          {"title":"Lion King", "year":1999},
+          {"title":"Snow white", "year":1998},
+          {"title":"Ice Age", "year":2012} ]
 
 
 
@@ -20,3 +25,8 @@ def get_movies():
 def get_movie(movie_id:int):
     return movies[movie_id]
 
+#delete a movie
+@app.delete("/movie/{movie_id}")
+def delete_movie(movie_id:int):
+    movies.pop(movie_id)
+    return {"message":"movie has been deleted successfully"}
