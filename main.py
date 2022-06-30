@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import mysql.connector
+from Movie import Movie
 
 
 mydb = mysql.connector.connect(
@@ -52,9 +53,9 @@ def delete_movie(movie_id:int):
 
 #create a movie
 @app.post("/create_movie")
-def create_movie(movie:dict):
+def create_movie(movie:Movie):
     sql = "INSERT INTO movies(title, year, storyline) VALUES(%s, %s, %s)"
-    val = (movie['title'], movie['year'], movie['storyline'])
+    val = (movie.title, movie.year, movie.storyline)
     mycursor.execute(sql,val)
     mydb.commit()
     return movie
