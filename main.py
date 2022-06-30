@@ -58,9 +58,9 @@ def create_movie(movie:dict):
 
 #update movie
 @app.post("/update_movie")
-def update_movie(movie_id:int, movie:dict):
+def update_movie(movie:dict):
     sql = "UPDATE movies SET title = %s, year = %s, storyline = %s WHERE id= %s"
-    val = (movie['title'], movie['year'], movie['storyline'], movie_id)
+    val = (movie['title'], movie['year'], movie['storyline'], movie['id'])
     mycursor.execute(sql, val)
     mydb.commit()
     return movie
