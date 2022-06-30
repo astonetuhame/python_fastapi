@@ -9,8 +9,6 @@ movies = [{"title":"", "year":0},
           {"title":"Snow white", "year":1998},
           {"title":"Ice Age", "year":2012} ]
 
-
-
 @app.get("/")
 async def root():
     return {"message":"welcome"}
@@ -30,3 +28,9 @@ def get_movie(movie_id:int):
 def delete_movie(movie_id:int):
     movies.pop(movie_id)
     return {"message":"movie has been deleted successfully"}
+
+#create a movie
+@app.post("/movie")
+def create_movie(movie:dict):
+    movies.append(movie)
+    return movies[-1]
