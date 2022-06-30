@@ -50,8 +50,11 @@ def delete_movie(movie_id:int):
 #create a movie
 @app.post("/create_movie")
 def create_movie(movie:dict):
-    movies.append(movie)
-    return movies[-1]
+    sql = "INSERT INTO movies(title, year, storyline) VALUES(%s, %s, %s)"
+    val = (movie['title'], movie['year'], movie['storyline'])
+    mycursor.execute(sql,val)
+    mydb.commit()
+    return movie
 
 #update movie
 @app.post("/update_movie")
