@@ -30,7 +30,16 @@ def delete_movie(movie_id:int):
     return {"message":"movie has been deleted successfully"}
 
 #create a movie
-@app.post("/movie")
+@app.post("/create_movie")
 def create_movie(movie:dict):
     movies.append(movie)
     return movies[-1]
+
+#update movie
+@app.post("/update_movie")
+def update_movie(movie_id:int, movie:dict):
+    movie_to_be_updated = movies[movie_id] #get movie to be updated
+    movie_to_be_updated['title'] = movie['title'] #update title
+    movie_to_be_updated['year'] = movie['year'] #update year
+    movies[movie_id] = movie_to_be_updated #has been updated successfully
+    return movie_to_be_updated
