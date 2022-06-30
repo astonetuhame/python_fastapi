@@ -44,7 +44,10 @@ def get_movie(movie_id:int):
 #delete a movie
 @app.delete("/movie/{movie_id}")
 def delete_movie(movie_id:int):
-    movies.pop(movie_id)
+    sql = "DELETE FROM movies WHERE id = %s"
+    val = (movie_id,)
+    mycursor.execute(sql, val)
+    mydb.commit()
     return {"message":"movie has been deleted successfully"}
 
 #create a movie
