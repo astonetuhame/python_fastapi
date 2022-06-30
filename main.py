@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import mysql.connector
 from Movie import Movie
 
@@ -49,6 +49,8 @@ def get_movie_by_title(movie_title:str):
     val = (movie_title,)
     mycursor.execute(sql, val)
     movie = mycursor.fetchall()
+    if len(movie) == 0:
+        raise HTTPException(status_code=500, detail="Movie not found")
     return movie[0]
 
 #delete a movie
