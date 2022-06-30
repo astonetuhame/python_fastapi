@@ -42,6 +42,15 @@ def get_movie(movie_id:int):
      movie = mycursor.fetchall()
      return movie[0]
 
+#get single movie by title
+@app.get("/movie_by_title/{movie_title}")
+def get_movie_by_title(movie_title:str):
+    sql = "SELECT * FROM movies WHERE title = %s"
+    val = (movie_title,)
+    mycursor.execute(sql, val)
+    movie = mycursor.fetchall()
+    return movie[0]
+
 #delete a movie
 @app.delete("/movie/{movie_id}")
 def delete_movie(movie_id:int):
